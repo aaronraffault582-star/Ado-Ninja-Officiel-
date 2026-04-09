@@ -5,34 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ado-Ninja | Portail</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body {
-            background: #0f172a;
+            background: #0b0e14;
             height: 100vh;
             display: flex; justify-content: center; align-items: center;
             color: white; overflow: hidden;
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 40px; width: 350px; text-align: center;
+            padding: 30px; width: 380px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        h1 { color: #00d2ff; margin-bottom: 20px; }
+        h1 { color: #00d2ff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
         input {
-            width: 100%; padding: 12px; margin: 10px 0;
-            background: rgba(255, 255, 255, 0.1); border: 1px solid #334155;
+            width: 100%; padding: 10px; margin: 8px 0;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px; color: white; outline: none;
         }
+        input:focus { border-color: #00d2ff; }
         .btn {
             width: 100%; padding: 12px; background: #00d2ff;
             border: none; border-radius: 8px; color: white;
-            font-weight: bold; cursor: pointer; margin-top: 10px;
+            font-weight: bold; cursor: pointer; margin-top: 15px;
+            transition: 0.3s;
         }
-        .btn:hover { background: #0095b3; }
-        .footer { margin-top: 20px; font-size: 0.9rem; cursor: pointer; color: #94a3b8; }
-        .footer span { color: #00d2ff; text-decoration: underline; }
+        .btn:hover { background: #0095b3; transform: scale(1.02); }
+        .footer { margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
+        .footer span { color: #00d2ff; text-decoration: underline; cursor: pointer; font-weight: bold; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -40,41 +44,52 @@
     <div class="glass-card">
         <h1 id="title">ADO NINJA</h1>
         
-        <div id="form-content">
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="pass" placeholder="Mot de passe">
-            <button class="btn" id="mainBtn" onclick="valider()">SE CONNECTER</button>
+        <div id="login-form">
+            <input type="email" id="log-email" placeholder="Email">
+            <input type="password" id="log-pass" placeholder="Mot de passe">
+            <button class="btn" onclick="validerConnexion()">SE CONNECTER</button>
+            <div class="footer">Pas de compte ? <span onclick="ouvrirInscription()">S'inscrire</span></div>
         </div>
 
-        <div class="footer" id="toggleArea">
-            Pas de compte ? <span onclick="passerInscription()">S'inscrire</span>
+        <div id="signup-form" class="hidden">
+            <input type="text" id="sign-nom" placeholder="Prénom">
+            <input type="number" id="sign-age" placeholder="Âge">
+            <input type="email" id="sign-email" placeholder="Email">
+            <input type="password" id="sign-pass" placeholder="Mot de passe">
+            <button class="btn" onclick="validerInscription()">CRÉER MON COMPTE</button>
+            <div class="footer">Déjà membre ? <span onclick="ouvrirConnexion()">Se connecter</span></div>
         </div>
     </div>
 
     <script>
-        // FONCTION POUR CHANGER LE FORMULAIRE
-        function passerInscription() {
-            document.getElementById('title').innerText = "INSCRIPTION";
-            document.getElementById('mainBtn').innerText = "CRÉER MON COMPTE";
-            document.getElementById('toggleArea').innerHTML = 'Déjà membre ? <span onclick="passerConnexion()">Se connecter</span>';
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const title = document.getElementById('title');
+
+        function ouvrirInscription() {
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+            title.innerText = "REJOINDRE LE CLAN";
         }
 
-        function passerConnexion() {
-            document.getElementById('title').innerText = "ADO NINJA";
-            document.getElementById('mainBtn').innerText = "SE CONNECTER";
-            document.getElementById('toggleArea').innerHTML = 'Pas de compte ? <span onclick="passerInscription()">S\'inscrire</span>';
+        function ouvrirConnexion() {
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            title.innerText = "ADO NINJA";
         }
 
-        // FONCTION QUAND ON CLIQUE SUR LE BOUTON
-        function valider() {
-            const email = document.getElementById('email').value;
-            const mdp = document.getElementById('pass').value;
+        function validerConnexion() {
+            const email = document.getElementById('log-email').value;
+            const pass = document.getElementById('log-pass').value;
+            if(!email || !pass) return alert("Remplis tout !");
+            alert("Connexion réussie pour " + email);
+        }
 
-            if(email === "" || mdp === "") {
-                alert("Remplis les cases Ninja !");
-            } else {
-                alert("Accès autorisé pour : " + email + "\nBienvenue dans le clan.");
-            }
+        function validerInscription() {
+            const nom = document.getElementById('sign-nom').value;
+            const age = document.getElementById('sign-age').value;
+            if(!nom || !age) return alert("Il manque des infos Ninja !");
+            alert("Bienvenue " + nom + " ! Ton compte est prêt.");
         }
     </script>
 
