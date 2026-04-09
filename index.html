@@ -3,46 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADO NINJA - Officiel</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Ado-Ninja | Espace Membre</title>
+    <style>
+        /* Style Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f3460);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* Décoration de fond (Cercles animés) */
+        .background-decor {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            filter: blur(50px);
+            opacity: 0.4;
+            animation: move 10s infinite alternate;
+        }
+
+        .c1 { width: 300px; height: 300px; top: -50px; left: -50px; }
+        .c2 { width: 250px; height: 250px; bottom: -50px; right: -50px; background: #ff007f; }
+
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(50px, 100px); }
+        }
+
+        /* Boîte Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 50px;
+            width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #00d2ff, #91eaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            opacity: 0.7;
+        }
+
+        /* Formulaire */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00d2ff;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            background: #00d2ff;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-login:hover {
+            background: #0095b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+
+        .footer-text a {
+            color: #00d2ff;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="login-screen" class="glass-container">
-        <h1 class="neon-title">ADO NINJA</h1>
-        <p class="subtitle">VERSION OFFICIELLE</p>
-        
-        <div class="form-group">
-            <input type="text" id="reg-prenom" placeholder="Prénom" class="neon-input">
-            <input type="email" id="reg-email" placeholder="Email" class="neon-input">
-            <input type="number" id="reg-age" placeholder="Âge" class="neon-input">
-            <input type="password" id="reg-pass" placeholder="Mot de passe" class="neon-input">
-        </div>
 
-        <button onclick="handleAuth()" class="btn-neon">S'INSCRIRE</button>
-        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+    <div class="background-decor">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
     </div>
 
-    <div id="admin-panel" class="glass-container admin-box" style="display:none;">
-        <h2 class="neon-title-small">CONSOLE ADMIN ✅</h2>
-        <p class="admin-user">Connecté : aaronraffault582@gmail.com</p>
+    <div class="glass-card">
+        <h1>ADO NINJA</h1>
+        <p>Accédez au portail secret</p>
         
-        <div class="admin-sections">
-            <div class="log-section">
-                <h3>LOGS DE SÉCURITÉ (IA GEMINI) 🤖</h3>
-                <div id="logs-display" class="logs-window">
-                    <p>[SYSTEM] Console prête...</p>
-                </div>
+        <form action="#">
+            <div class="input-group">
+                <label>Identifiant</label>
+                <input type="email" placeholder="votre-email@gmail.com" required>
             </div>
             
-            <div class="annonces-section">
-                <h3>PUBLIER UNE ANNONCE 📢</h3>
-                <textarea id="announcement-text" placeholder="Écris ton annonce ici..."></textarea>
-                <button onclick="postAnnouncement()" class="btn-neon-small">PUBLIER</button>
+            <div class="input-group">
+                <label>Mot de passe</label>
+                <input type="password" placeholder="••••••••••••" required>
             </div>
+            
+            <button type="submit" class="btn-login">S'authentifier</button>
+        </form>
+
+        <div class="footer-text">
+            Mode Admin : <a href="#">Activé</a>
         </div>
-        <button onclick="logout()" class="btn-logout">DÉCONNEXION</button>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
