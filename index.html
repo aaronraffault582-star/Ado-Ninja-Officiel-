@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ado-Ninja | VERSION OFFICIELLE</title>
+    <title>Ado-Ninja | OFFICIEL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -15,64 +15,39 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
+        body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
 
-        /* --- ÉCRAN DE CONNEXION --- */
+        /* --- ÉCRAN DE DÉPART (OBLIGATOIRE) --- */
         #auth-screen {
-            height: 100vh; display: flex; justify-content: center; align-items: center;
+            height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center;
             background: radial-gradient(circle at top right, #1a1a2e, #0b0f1a);
-            position: fixed; width: 100%; z-index: 2000;
+            position: fixed; top: 0; left: 0; z-index: 9999;
         }
         .auth-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
-            width: 380px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            background: var(--glass); backdrop-filter: blur(25px);
+            padding: 35px; border-radius: 25px; border: 1px solid var(--neon-blue);
+            width: 90%; max-width: 400px; text-align: center;
         }
-        .auth-card h1 { color: var(--neon-blue); margin-bottom: 20px; font-size: 1.8rem; letter-spacing: 2px; }
-        
-        input, select, textarea {
-            width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.08);
-            border: 1px solid transparent; border-radius: 12px; color: white; outline: none; transition: 0.3s;
+        h1 { color: var(--neon-blue); margin-bottom: 20px; text-transform: uppercase; }
+
+        /* --- LES CASES QUE TU VEUX --- */
+        .input-group { margin-bottom: 10px; text-align: left; }
+        label { font-size: 0.75rem; color: var(--neon-blue); margin-left: 5px; }
+        input {
+            width: 100%; padding: 12px; margin-top: 5px;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; color: white; outline: none;
         }
-        input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
-        
+        input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
+
         .btn-neon {
             width: 100%; padding: 15px; background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px;
+            border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
 
-        /* --- INTERFACE PRINCIPALE --- */
-        #main-app { display: none; height: 100vh; flex-direction: column; }
-
-        /* BARRE DE NAVIGATION BASSE (Mobile First) */
-        .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; height: 70px;
-            background: rgba(15, 20, 30, 0.95); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-around; align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.1); z-index: 100;
-        }
-        .nav-item { text-align: center; color: #888; cursor: pointer; font-size: 0.7rem; }
-        .nav-item i { font-size: 1.5rem; display: block; margin-bottom: 2px; }
-        .nav-item.active { color: var(--neon-blue); }
-
-        /* MENU LATÉRAL */
-        #side-menu {
-            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
-            background: #121826; transition: 0.4s; z-index: 500; padding: 20px;
-            border-right: 1px solid var(--neon-blue);
-        }
-        #side-menu.open { left: 0; }
-        .profile-header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #333; }
-        .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--neon-purple); margin-bottom: 10px; }
-        .badge-v { color: #00ffaa; font-size: 0.8rem; font-weight: bold; }
-        .badge-p { color: #ffcc00; font-size: 0.8rem; font-weight: bold; }
-
-        /* ZONE CONTENU */
-        .content { flex: 1; padding: 20px; overflow-y: auto; padding-bottom: 100px; }
-        .card { background: var(--glass); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        /* --- LE SITE CACHÉ --- */
+        #main-app { display: none; padding: 20px; }
         .hidden { display: none !important; }
-
-        label { display: block; margin-top: 15px; font-size: 0.8rem; color: var(--neon-blue); }
     </style>
 </head>
 <body>
@@ -80,110 +55,50 @@
     <div id="auth-screen">
         <div class="auth-card">
             <h1>ADO NINJA</h1>
-            <p style="font-size: 0.8rem; opacity: 0.6; margin-bottom: 20px;">VERSION OFFICIELLE</p>
-            <input type="text" id="reg-name" placeholder="Prénom">
-            <input type="number" id="reg-age" placeholder="Âge">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Mot de passe">
-            <button class="btn-neon" onclick="login()">S'INSCRIRE</button>
-            <p style="margin-top: 15px; font-size: 0.8rem; color: var(--neon-blue); cursor: pointer;">Mot de passe oublié ?</p>
+            
+            <div class="input-group">
+                <label>Prénom</label>
+                <input type="text" id="p-prenom" placeholder="Ton prénom...">
+            </div>
+
+            <div class="input-group">
+                <label>Âge</label>
+                <input type="number" id="p-age" placeholder="Ton âge...">
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="p-email" placeholder="email@exemple.com">
+            </div>
+
+            <div class="input-group">
+                <label>Mot de passe</label>
+                <input type="password" id="p-pass" placeholder="••••••••">
+            </div>
+
+            <button class="btn-neon" onclick="lancerSite()">S'INSCRIRE & ENTRER</button>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #888; cursor: pointer;">Déjà un compte ? Se connecter</p>
         </div>
     </div>
 
     <div id="main-app">
-        
-        <div id="side-menu">
-            <div class="profile-header">
-                <img src="https://via.placeholder.com/80" class="profile-pic">
-                <h3 id="user-display">Ninja</h3>
-                <p><span class="badge-v">✅ Vérifié</span> | <span class="badge-p">💎 Premium</span></p>
-            </div>
-            <div class="menu-links">
-                <div style="padding: 15px; cursor: pointer;" onclick="showPage('home')"><i class="fas fa-home"></i> Accueil</div>
-                <div style="padding: 15px; cursor: pointer;" onclick="showPage('premium')"><i class="fas fa-gem"></i> Premium</div>
-                <div style="padding: 15px; cursor: pointer;" onclick="showPage('edit')"><i class="fas fa-user-edit"></i> Modifier Profil</div>
-                <div style="padding: 15px; cursor: pointer;" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Déconnexion</div>
-            </div>
-        </div>
-
-        <div class="content">
-            <div id="page-home">
-                <div class="card">
-                    <h2>Fil d'actualité</h2>
-                    <p style="opacity: 0.6; margin-top: 10px;">Aucune annonce pour le moment. La sécurité Gemini IA surveille le clan.</p>
-                </div>
-            </div>
-
-            <div id="page-edit" class="hidden">
-                <div class="card">
-                    <h2>Édition du Profil</h2>
-                    
-                    <label>Identité</label>
-                    <select id="gender">
-                        <option>Genre : Garçon</option><option>Genre : Fille</option><option>Genre : Autre</option>
-                    </select>
-                    <select id="orientation">
-                        <option>Hétéro</option><option>Gay</option><option>Bi</option>
-                        <option>Pan</option><option>Queer</option><option>En questionnement</option>
-                    </select>
-
-                    <label>Physique</label>
-                    <input type="text" placeholder="Cheveux (couleur/style)">
-                    <input type="text" placeholder="Yeux">
-                    <input type="number" placeholder="Taille (cm)">
-                    <input type="text" placeholder="Corpulence">
-                    <input type="text" placeholder="Style (Skateur, Sport, etc.)">
-
-                    <label>Biographie</label>
-                    <textarea rows="4" placeholder="Décris-toi... (Analysé par Gemini IA)"></textarea>
-
-                    <button class="btn-neon">SAUVEGARDER ✅</button>
-                    <button class="btn-neon" style="background: #22c55e; margin-top: 10px;">DEMANDER VÉRIFICATION ✅</button>
-                </div>
-            </div>
-
-            <div id="page-premium" class="hidden">
-                <div class="card" style="border: 2px solid #ffcc00;">
-                    <h2 style="color: #ffcc00;">PACK PREMIUM 💎</h2>
-                    <ul style="list-style: none; margin-top: 15px; text-align: left;">
-                        <li>👑 Badge Couronne sur ton profil</li>
-                        <li>🚀 Messages et Photos illimités</li>
-                        <li>✉️ Accès direct au créateur</li>
-                    </ul>
-                    <button class="btn-neon" style="background: #ffcc00; color: black;">DEVENIR PREMIUM</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="bottom-nav">
-            <div class="nav-item"><i class="fas fa-envelope"></i>Messages</div>
-            <div class="nav-item"><i class="fas fa-bell"></i>Alerte</div>
-            <div class="nav-item active"><i class="fas fa-users"></i>Amis</div>
-            <div class="nav-item"><i class="fas fa-eye"></i>Vues</div>
-            <div class="nav-item" onclick="toggleMenu()"><i class="fas fa-bars"></i>Menu</div>
-        </div>
+        <h2 id="welcome">Bienvenue !</h2>
+        <p>Le site est maintenant débloqué.</p>
     </div>
 
     <script>
-        function login() {
-            const name = document.getElementById('reg-name').value;
-            if(!name) return alert("Ninja, entre ton prénom !");
-            document.getElementById('user-display').innerText = name;
-            document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('main-app').style.display = 'flex';
-        }
-
-        function toggleMenu() {
-            document.getElementById('side-menu').classList.toggle('open');
-        }
-
-        function showPage(pageId) {
-            document.getElementById('page-home').classList.add('hidden');
-            document.getElementById('page-edit').classList.add('hidden');
-            document.getElementById('page-premium').classList.add('hidden');
-            document.getElementById('page-' + pageId).classList.remove('hidden');
-            if(document.getElementById('side-menu').classList.contains('open')) toggleMenu();
+        function lancerSite() {
+            const prenom = document.getElementById('p-prenom').value;
+            if(!prenom) {
+                alert("Ninja, remplis ton prénom !");
+                return;
+            }
+            // CACHE LA CONNEXION ET MONTRE LE SITE
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('welcome').innerText = "Salut " + prenom + " ! 🥷";
         }
     </script>
+
 </body>
 </html>
