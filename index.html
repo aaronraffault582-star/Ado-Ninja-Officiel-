@@ -3,170 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ado-Ninja | Espace Membre</title>
+    <title>Ado-Ninja | Portail Officiel</title>
     <style>
-        /* Style Global */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f3460);
+            background: #0b0e14; /* Fond très sombre */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             color: white;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Décoration de fond (Cercles animés) */
-        .background-decor {
+        /* LUMIÈRES DE FOND (EFFET NINJA) */
+        .bg-light {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            filter: blur(50px);
-            opacity: 0.4;
-            animation: move 10s infinite alternate;
-        }
-
-        .c1 { width: 300px; height: 300px; top: -50px; left: -50px; }
-        .c2 { width: 250px; height: 250px; bottom: -50px; right: -50px; background: #ff007f; }
-
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 100px); }
-        }
-
-        /* Boîte Glassmorphism */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            padding: 50px;
             width: 400px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+            animation: float 10s infinite alternate;
+        }
+        .light-1 { top: -100px; left: -100px; }
+        .light-2 { bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(255, 0, 127, 0.15) 0%, transparent 70%); }
+
+        @keyframes float {
+            from { transform: translate(0, 0); }
+            to { transform: translate(50px, 50px); }
+        }
+
+        /* LA CARTE GLASSMORPHISM */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             text-align: center;
+            transition: all 0.5s ease;
         }
 
         h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(to right, #00d2ff, #91eaff);
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00d2ff, #00ffaa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
         }
 
-        p {
+        p.subtitle {
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
             margin-bottom: 30px;
-            opacity: 0.7;
         }
 
-        /* Formulaire */
-        .input-group {
-            margin-bottom: 20px;
+        /* FORMULAIRE */
+        .form-group {
             text-align: left;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
             font-size: 0.8rem;
-            margin-left: 5px;
+            margin-bottom: 8px;
+            margin-left: 10px;
+            color: #00d2ff;
         }
 
         input {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             color: white;
+            font-size: 1rem;
             outline: none;
             transition: 0.3s;
         }
 
         input:focus {
-            background: rgba(255, 255, 255, 0.2);
             border-color: #00d2ff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
         }
 
-        .btn-login {
+        .btn-submit {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             margin-top: 10px;
-            background: #00d2ff;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             color: white;
             font-weight: bold;
-            text-transform: uppercase;
+            font-size: 1rem;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            text-transform: uppercase;
         }
 
-        .btn-login:hover {
-            background: #0095b3;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.4);
         }
 
-        .footer-text {
-            margin-top: 20px;
-            font-size: 0.8rem;
+        /* SWITCH LOGIN/SIGNUP */
+        .toggle-box {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        .footer-text a {
+        .toggle-link {
             color: #00d2ff;
+            cursor: pointer;
+            font-weight: bold;
             text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="background-decor">
-        <div class="circle c1"></div>
-        <div class="circle c2"></div>
-    </div>
+    <div class="bg-light light-1"></div>
+    <div class="bg-light light-2"></div>
 
     <div class="glass-card">
-        <h1>ADO NINJA</h1>
-        <p>Accédez au portail secret</p>
-        
-        <form action="#">
-            <div class="input-group">
-                <label>Identifiant</label>
-                <input type="email" placeholder="votre-email@gmail.com" required>
+        <h1 id="main-title">ADO NINJA</h1>
+        <p class="subtitle" id="main-subtitle">Accédez au portail secret</p>
+
+        <form onsubmit="return false;">
+            <div class="form-group">
+                <label>Identifiant ou Email</label>
+                <input type="text" id="user-input" placeholder="Pseudo ou email..." required>
             </div>
-            
-            <div class="input-group">
+
+            <div class="form-group">
                 <label>Mot de passe</label>
-                <input type="password" placeholder="••••••••••••" required>
+                <input type="password" id="pass-input" placeholder="••••••••••••" required>
             </div>
-            
-            <button type="submit" class="btn-login">S'authentifier</button>
+
+            <button type="submit" class="btn-submit" id="btn-text">Se Connecter</button>
         </form>
 
-        <div class="footer-text">
-            Mode Admin : <a href="#">Activé</a>
+        <div class="toggle-box" id="switch-area">
+            Pas encore de compte ? <span class="toggle-link" onclick="toggleForm()">S'inscrire</span>
         </div>
     </div>
+
+    <script>
+        let isLoginMode = true;
+
+        function toggleForm() {
+            isLoginMode = !isLoginMode;
+
+            const title = document.getElementById('main-title');
+            const subtitle = document.getElementById('main-subtitle');
+            const btn = document.getElementById('btn-text');
+            const switchArea = document.getElementById('switch-area');
+
+            if (!isLoginMode) {
+                // MODE INSCRIPTION
+                title.innerText = "CLAN NINJA";
+                subtitle.innerText = "Rejoins l'élite dès maintenant";
+                btn.innerText = "Créer mon compte";
+                switchArea.innerHTML = 'Déjà membre ? <span class="toggle-link" onclick="toggleForm()">Se connecter</span>';
+            } else {
+                // MODE CONNEXION
+                title.innerText = "ADO NINJA";
+                subtitle.innerText = "Accédez au portail secret";
+                btn.innerText = "Se Connecter";
+                switchArea.innerHTML = 'Pas encore de compte ? <span class="toggle-link" onclick="toggleForm()">S\'inscrire</span>';
+            }
+        }
+    </script>
 
 </body>
 </html>
