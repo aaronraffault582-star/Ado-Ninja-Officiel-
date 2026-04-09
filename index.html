@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADO NINJA - Officiel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-screen" class="glass-container">
+        <h1 class="neon-title">ADO NINJA</h1>
+        <p class="subtitle">VERSION OFFICIELLE</p>
+        
+        <div class="form-group">
+            <input type="text" id="reg-prenom" placeholder="Prénom" class="neon-input">
+            <input type="email" id="reg-email" placeholder="Email" class="neon-input">
+            <input type="number" id="reg-age" placeholder="Âge" class="neon-input">
+            <input type="password" id="reg-pass" placeholder="Mot de passe" class="neon-input">
+        </div>
+
+        <button onclick="handleAuth()" class="btn-neon">S'INSCRIRE</button>
+        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+    </div>
+
+    <div id="admin-panel" class="glass-container admin-box" style="display:none;">
+        <h2 class="neon-title-small">CONSOLE ADMIN ✅</h2>
+        <p class="admin-user">Connecté : aaronraffault582@gmail.com</p>
+        
+        <div class="admin-sections">
+            <div class="log-section">
+                <h3>LOGS DE SÉCURITÉ (IA GEMINI) 🤖</h3>
+                <div id="logs-display" class="logs-window">
+                    <p>[SYSTEM] Console prête...</p>
+                </div>
+            </div>
+            
+            <div class="annonces-section">
+                <h3>PUBLIER UNE ANNONCE 📢</h3>
+                <textarea id="announcement-text" placeholder="Écris ton annonce ici..."></textarea>
+                <button onclick="postAnnouncement()" class="btn-neon-small">PUBLIER</button>
+            </div>
+        </div>
+        <button onclick="logout()" class="btn-logout">DÉCONNEXION</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
