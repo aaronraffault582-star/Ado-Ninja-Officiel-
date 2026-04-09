@@ -15,12 +15,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; height: 100vh; }
+        body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
 
-        /* --- ÉCRAN DE CONNEXION (DARK GLASS) --- */
+        /* --- ÉCRAN DE CONNEXION --- */
         #auth-screen {
             height: 100vh; display: flex; justify-content: center; align-items: center;
             background: radial-gradient(circle at top right, #1a1a2e, #0b0f1a);
+            position: fixed; width: 100%; z-index: 2000;
         }
         .auth-card {
             background: var(--glass); backdrop-filter: blur(20px);
@@ -28,11 +29,13 @@
             width: 380px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
         .auth-card h1 { color: var(--neon-blue); margin-bottom: 20px; font-size: 1.8rem; letter-spacing: 2px; }
+        
         input, select, textarea {
             width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.08);
             border: 1px solid transparent; border-radius: 12px; color: white; outline: none; transition: 0.3s;
         }
         input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
+        
         .btn-neon {
             width: 100%; padding: 15px; background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
             border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px;
@@ -41,35 +44,35 @@
         /* --- INTERFACE PRINCIPALE --- */
         #main-app { display: none; height: 100vh; flex-direction: column; }
 
-        /* BARRE DE NAVIGATION BASSE */
+        /* BARRE DE NAVIGATION BASSE (Mobile First) */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; height: 70px;
-            background: rgba(15, 20, 30, 0.9); backdrop-filter: blur(10px);
+            background: rgba(15, 20, 30, 0.95); backdrop-filter: blur(10px);
             display: flex; justify-content: space-around; align-items: center;
             border-top: 1px solid rgba(255,255,255,0.1); z-index: 100;
         }
-        .nav-item { text-align: center; color: #888; cursor: pointer; font-size: 0.8rem; }
+        .nav-item { text-align: center; color: #888; cursor: pointer; font-size: 0.7rem; }
         .nav-item i { font-size: 1.5rem; display: block; margin-bottom: 2px; }
         .nav-item.active { color: var(--neon-blue); }
 
         /* MENU LATÉRAL */
         #side-menu {
             position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
-            background: #121826; transition: 0.4s; z-index: 200; padding: 20px;
+            background: #121826; transition: 0.4s; z-index: 500; padding: 20px;
             border-right: 1px solid var(--neon-blue);
         }
         #side-menu.open { left: 0; }
         .profile-header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #333; }
         .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--neon-purple); margin-bottom: 10px; }
-        .badge-v { color: #00ffaa; font-size: 0.9rem; }
-        .badge-p { color: #ffcc00; font-size: 0.9rem; }
-        .menu-links div { padding: 15px; cursor: pointer; font-size: 1.1rem; border-radius: 10px; }
-        .menu-links div:hover { background: rgba(0,210,255,0.1); color: var(--neon-blue); }
+        .badge-v { color: #00ffaa; font-size: 0.8rem; font-weight: bold; }
+        .badge-p { color: #ffcc00; font-size: 0.8rem; font-weight: bold; }
 
-        /* ZONE CONTENU (SCROLLABLE) */
+        /* ZONE CONTENU */
         .content { flex: 1; padding: 20px; overflow-y: auto; padding-bottom: 100px; }
-        .card { background: var(--glass); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
-        .hidden { display: none; }
+        .card { background: var(--glass); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .hidden { display: none !important; }
+
+        label { display: block; margin-top: 15px; font-size: 0.8rem; color: var(--neon-blue); }
     </style>
 </head>
 <body>
@@ -92,14 +95,14 @@
         <div id="side-menu">
             <div class="profile-header">
                 <img src="https://via.placeholder.com/80" class="profile-pic">
-                <h3 id="user-display">Pseudo</h3>
+                <h3 id="user-display">Ninja</h3>
                 <p><span class="badge-v">✅ Vérifié</span> | <span class="badge-p">💎 Premium</span></p>
             </div>
             <div class="menu-links">
-                <div onclick="showPage('home')"><i class="fas fa-home"></i> Accueil</div>
-                <div onclick="showPage('premium')"><i class="fas fa-gem"></i> Premium</div>
-                <div onclick="showPage('edit')"><i class="fas fa-user-edit"></i> Modifier Profil</div>
-                <div onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Déconnexion</div>
+                <div style="padding: 15px; cursor: pointer;" onclick="showPage('home')"><i class="fas fa-home"></i> Accueil</div>
+                <div style="padding: 15px; cursor: pointer;" onclick="showPage('premium')"><i class="fas fa-gem"></i> Premium</div>
+                <div style="padding: 15px; cursor: pointer;" onclick="showPage('edit')"><i class="fas fa-user-edit"></i> Modifier Profil</div>
+                <div style="padding: 15px; cursor: pointer;" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Déconnexion</div>
             </div>
         </div>
 
@@ -107,23 +110,47 @@
             <div id="page-home">
                 <div class="card">
                     <h2>Fil d'actualité</h2>
-                    <p style="opacity: 0.6; margin-top: 10px;">Aucune annonce pour le moment. Sois le premier Ninja à poster !</p>
+                    <p style="opacity: 0.6; margin-top: 10px;">Aucune annonce pour le moment. La sécurité Gemini IA surveille le clan.</p>
                 </div>
             </div>
 
             <div id="page-edit" class="hidden">
                 <div class="card">
                     <h2>Édition du Profil</h2>
-                    <label>Orientation</label>
-                    <select>
+                    
+                    <label>Identité</label>
+                    <select id="gender">
+                        <option>Genre : Garçon</option><option>Genre : Fille</option><option>Genre : Autre</option>
+                    </select>
+                    <select id="orientation">
                         <option>Hétéro</option><option>Gay</option><option>Bi</option>
                         <option>Pan</option><option>Queer</option><option>En questionnement</option>
                     </select>
+
                     <label>Physique</label>
-                    <input type="text" placeholder="Couleur cheveux / style">
+                    <input type="text" placeholder="Cheveux (couleur/style)">
+                    <input type="text" placeholder="Yeux">
                     <input type="number" placeholder="Taille (cm)">
-                    <textarea rows="4" placeholder="Ta BIO (Surveillée par IA Gemini...)"></textarea>
+                    <input type="text" placeholder="Corpulence">
+                    <input type="text" placeholder="Style (Skateur, Sport, etc.)">
+
+                    <label>Biographie</label>
+                    <textarea rows="4" placeholder="Décris-toi... (Analysé par Gemini IA)"></textarea>
+
                     <button class="btn-neon">SAUVEGARDER ✅</button>
+                    <button class="btn-neon" style="background: #22c55e; margin-top: 10px;">DEMANDER VÉRIFICATION ✅</button>
+                </div>
+            </div>
+
+            <div id="page-premium" class="hidden">
+                <div class="card" style="border: 2px solid #ffcc00;">
+                    <h2 style="color: #ffcc00;">PACK PREMIUM 💎</h2>
+                    <ul style="list-style: none; margin-top: 15px; text-align: left;">
+                        <li>👑 Badge Couronne sur ton profil</li>
+                        <li>🚀 Messages et Photos illimités</li>
+                        <li>✉️ Accès direct au créateur</li>
+                    </ul>
+                    <button class="btn-neon" style="background: #ffcc00; color: black;">DEVENIR PREMIUM</button>
                 </div>
             </div>
         </div>
@@ -140,7 +167,7 @@
     <script>
         function login() {
             const name = document.getElementById('reg-name').value;
-            if(!name) return alert("Prénom requis !");
+            if(!name) return alert("Ninja, entre ton prénom !");
             document.getElementById('user-display').innerText = name;
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'flex';
@@ -153,8 +180,9 @@
         function showPage(pageId) {
             document.getElementById('page-home').classList.add('hidden');
             document.getElementById('page-edit').classList.add('hidden');
+            document.getElementById('page-premium').classList.add('hidden');
             document.getElementById('page-' + pageId).classList.remove('hidden');
-            toggleMenu();
+            if(document.getElementById('side-menu').classList.contains('open')) toggleMenu();
         }
     </script>
 </body>
